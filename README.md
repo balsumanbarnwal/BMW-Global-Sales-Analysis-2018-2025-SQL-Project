@@ -64,12 +64,6 @@ The dataset contains the following columns:
 * Region with highest EV adoption
 * EV share vs revenue growth analysis
 
-### External Factor Analysis
-
-* Correlation between GDP growth and revenue
-* Impact of fuel price on units sold
-* Region-wise fuel sensitivity
-
 ### Advanced Analytics
 
 * Month-over-Month (MoM) growth
