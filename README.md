@@ -83,48 +83,12 @@ The dataset contains the following columns:
 
 ---
 
-## Example Queries
-
-### Year-over-Year Revenue Growth
-
-```sql
-WITH yearly_revenue AS (
-    SELECT year, SUM(revenue_eur) AS total_revenue
-    FROM bmw_global_sales_2018_2025
-    GROUP BY year
-)
-SELECT 
-    year,
-    total_revenue,
-    LAG(total_revenue) OVER (ORDER BY year) AS prev_year,
-    ROUND(
-        (total_revenue - LAG(total_revenue) OVER (ORDER BY year)) * 100.0 /
-        LAG(total_revenue) OVER (ORDER BY year),
-        2
-    ) AS yoy_growth
-FROM yearly_revenue;
-```
-
----
-
 ## Business Recommendations
 
 * Invest more in **electric vehicle segment** due to rising adoption
 * Focus on **high-growth regions** for expansion
 * Re-evaluate or redesign **declining models**
 * Use **fuel price and GDP indicators** for demand forecasting
-
----
-
-## Project Structure
-
-```
-├── dataset/
-│   └── bmw_global_sales_2018_2025.csv
-├── sql/
-│   └── analysis_queries.sql
-├── README.md
-```
 
 ---
 
