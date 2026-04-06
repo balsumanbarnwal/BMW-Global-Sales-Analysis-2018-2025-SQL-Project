@@ -13,8 +13,6 @@ create table bmw(
 );
 
 
-1. Basic SQL Questions (Beginner)
-
 -- Display all records from the BMW sales dataset.
 
 select * from bmw;
@@ -61,10 +59,6 @@ order by units_sold desc;
 select * from bmw
 order by revenue_eur desc
 limit 10;
-
-
-
-2. Aggregation Queries (Intermediate)
 
 -- Calculate the total Units Sold per Region.
 
@@ -123,9 +117,6 @@ group by region;
 select region, year, sum(revenue_eur) as total_revenue from bmw
 group by region, year
 order by region, year;
-
-
-3. Group By & Filtering (Intermediate)
 
 -- Find total Units_Sold per Region per Year.
 
@@ -196,8 +187,6 @@ select year, round(avg(premium_share),2) as avg_premium_share from bmw
 group by year
 order by year;
 
-4. Window Functions (Advanced SQL)
-
 -- Rank models by Units_Sold within each region.
 
 select region, model, sum(units_sold),
@@ -263,11 +252,6 @@ round(avg(sum(revenue_eur)) over(partition by region),0) as regional_avg_revenue
 from bmw
 group by region, model);
 
-select model, region,sum(revenue_eur)as model_revenue, 
-avg(sum(revenue_eur)) over(partition by region)as regional_avg_revenue,
-sum(revenue_eur)- avg(sum(revenue_eur)) over(partition by region)as difference_from_average from bmw
-group by model,region;
-
 -- Calculate percentage contribution of each model to region sales.
 
 select region, model, round(model_sales_revenue * 100 / regional_sales_revenue,2) as regional_percentge_contribution from
@@ -282,8 +266,6 @@ lag(sum(revenue_eur)) over(order by year, month) as previous_month_revenue
 from bmw
 group by year, month
 order by year, month;
-
-5. Business Analysis Questions (Project Level)
 
 -- Which region generated the highest revenue overall?
 
@@ -345,8 +327,6 @@ from bmw
 group by year, region)
 where rnk = 1;
 
-6. Advanced Analytical SQL Questions (Portfolio Level)
-
 -- Calculate Year-over-Year revenue growth.
 
 select year, sum(revenue_eur) as total_revenue,
@@ -402,11 +382,4 @@ lag(sum(revenue_eur)) over(order by year, month) as prev_month_revenue,
 sum(revenue_eur) - lag(sum(revenue_eur)) over(order by year, month) as revenue_growth
 from bmw group by year, month order by year, month)
 select year, month, monthly_revenue, prev_month_revenue, revenue_growth from xyz
-where revenue_growth < 0;
-
-select year, month, monthly_revenue, prev_month_revenue, revenue_growth from
-(select year, month, sum(revenue_eur) as monthly_revenue,
-lag(sum(revenue_eur)) over(order by year, month) as prev_month_revenue,
-sum(revenue_eur) - lag(sum(revenue_eur)) over(order by year, month) as revenue_growth
-from bmw group by year, month order by year, month)
 where revenue_growth < 0;
